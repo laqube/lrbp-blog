@@ -8,14 +8,21 @@ import Feed from './pages/feed';
 import Reg from './pages/registration';
 import Log from './pages/login';
 
+//components
+import Header from './components/header';
+import Footer from './components/footer';
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Feed/>}/>
-      
-      <Route path="/registration" element={<Reg/>}/>
-      <Route path="/login" element={<Log/>}/>
-    </Routes>
+    <><><Header></Header><Routes>
+
+      <Route path="/" element={<Feed />} />
+
+      <Route path="/registration" element={<Reg />} />
+      <Route path="/login" element={<Log />} />
+
+    </Routes></><Footer alignItems="flex-end"></Footer></>
+    
   );
 }
 
