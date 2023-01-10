@@ -17,11 +17,12 @@ body {
 
 .footer {
   font-family: 'Fondamento', cursive;
-
+  margin-top: 2em;
+  bottom: 0;
   position: static;
   width: 100%;
   background-color: #000;
   color: white;
-  height: 200px;
+  height: 250px;
   text-align: center;
 }
