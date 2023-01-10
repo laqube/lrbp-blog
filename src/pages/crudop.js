@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
+import TextField from "@mui/material/TextField";
 
 function CRUDOp(){
     const list=[
@@ -23,7 +24,7 @@ function CRUDOp(){
             email:"example3@astanait.edu.kz",
             password: "Doe667",
             role:"user"
-        }
+        },
     ]
      
     const [lists, setList] = useState(list)
@@ -76,11 +77,54 @@ function AddList({setList}){
     }
     return(
         <form onSubmit={handleSubmit}>
-            <input type="text" name="username" placeholder='Enter Username'sx={{m: 1}}/>
-            <input type="text" name="email" placeholder='Enter Email'/>
-            <input type="text" name="role" placeholder='Enter The Role'/>
-            <input type="text" name="passowrd" placeholder='Enter Password'/>
-            <button type="submit">Add</button>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              type="text" name="username" placeholder='Enter Username' 
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              type="text" 
+              name="email" 
+              placeholder='Enter Email'
+              autoComplete="email"
+              autoFocus
+
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              type="text" name="role" placeholder='Enter The Role'
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              type="text" name="passowrd" placeholder='Enter Password' 
+              autoComplete="email"
+              autoFocus
+            />
+            <Button type="submit" 
+                    variant="outlined" 
+                    color="success"
+                    sx={{mx: 1}}
+                    >Add</Button>
             
         </form>
     )
