@@ -77,6 +77,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     `npm install nodemon`
     `npm install express`
     `npm install mongoose`
+    `npm install bcryptjs` 
 # -> Frontend folder
     `npm install`
     `npm install react`
