@@ -6,4 +6,6 @@ const router = express.Router();
 router.post("/registration", registration);
 router.post("/login", login );
 router.get("/user", verifyToken, getUser);
+
+//VERIFY TOKEN
 module.exports = router;

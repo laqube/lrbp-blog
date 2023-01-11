@@ -52,29 +52,31 @@ const login = async (req, res, next) =>{
         return res.status(400).json({message: "Password is wrong! >:("});
     }
     const token = jwt.sign({id: existingUser._id}, JWT_SK, {expiresIn: "2hr"}); //initial token
-    res.cookie(String(existingUser._id), token, {
+    res.cookie(String(existingUser._id), token, {                               //saving token inside of a cookie
         path: '/',
-        expires: new Date(Date.now()+ 1000 * 60 * 60 * 2),
+        expires: new Date(Date.now()+ 1000 * 720),
         httpOnly: true,
         sameSite: 'lax',
     })
-    return res.status(200).json({message: "Molodec, kirdik", user: existingUser, token }); //feedback on successfull entry
+    return res
+    .status(200)
+    .json({message: "Molodec, kirdik", user: existingUser, token }); //feedback on successfull entry
 
 }
 
-//REPETITIVE ENTRY WITHIN 2HR SESSION <-> JWT VALIDITY CHECK
+//REPETITIVE ENTRY WITHIN 2HR SESSION <-> JWT VALIDITY CHECK    
 const verifyToken = (req, res, next) => {
-    const cookies = req.headers.cookie;
-    const token = cookies.split("=")[1];                //get the jwtoken using cookies
-
-    // const headers = req.headers['authorization']; -old code for getting the token
-    // const token = headers.split(" ")[1];
+    // const cookies = req.headers.cookie;
+    // const token = cookies.split("=")[1];                //get the jwtoken using cookies
+    // console.log(token)
+    const headers = req.headers['authorization']; //old code for getting the token
+    const token = headers.split(" ")[1];
     if(!token)  {                                       //check if token exists
         res.status(404).json({message:"Tabylmady"});
     }
     jwt.verify(String(token), JWT_SK, (err, user) =>{   //verify the token
         if(err){
-            res.status(400).json({message:"Token qurtylgan"});
+            return res.status(400).json({message:"Token qurtylgan"});
         }
         console.log(user.id); 
         req.id = user.id; 
@@ -87,12 +89,12 @@ const getUser = async (req, res, next) => {
     const userId = req.id;
     let user;
     try{
-        user = await User.findById(userId, "-password");
+        user = await User.findById(userId, "-password");    //giveaway all the info except the password
     }catch(err){
         return new Error(err);
     }
     if(!user){
-        return res.status(404).json({message: "User tabylmady"});
+        return res.status(404).json({message: "User tabylmady"}); //token is leading to deleted user
     }
     return res.status(200).json({user});
 }
