@@ -51,18 +51,28 @@ const login = async (req, res, next) =>{
     if(!isPasswordCorrect){                                     //password validation
         return res.status(400).json({message: "Password is wrong! >:("});
     }
-    const token = jwt.sign({id: existingUser._id}, JWT_SK, {expiresIn: "1hr"}); //initial token
+    const token = jwt.sign({id: existingUser._id}, JWT_SK, {expiresIn: "2hr"}); //initial token
+    res.cookie(String(existingUser._id), token, {
+        path: '/',
+        expires: new Date(Date.now()+ 1000 * 60 * 60 * 2),
+        httpOnly: true,
+        sameSite: 'lax',
+    })
     return res.status(200).json({message: "Molodec, kirdik", user: existingUser, token }); //feedback on successfull entry
 
 }
 
+//REPETITIVE ENTRY WITHIN 2HR SESSION <-> JWT VALIDITY CHECK
 const verifyToken = (req, res, next) => {
-    const headers = req.headers['authorization'];
-    const token = headers.split(" ")[1];
-    if(!token)  {
+    const cookies = req.headers.cookie;
+    const token = cookies.split("=")[1];                //get the jwtoken using cookies
+
+    // const headers = req.headers['authorization']; -old code for getting the token
+    // const token = headers.split(" ")[1];
+    if(!token)  {                                       //check if token exists
         res.status(404).json({message:"Tabylmady"});
     }
-    jwt.verify(String(token), JWT_SK, (err, user) =>{
+    jwt.verify(String(token), JWT_SK, (err, user) =>{   //verify the token
         if(err){
             res.status(400).json({message:"Token qurtylgan"});
         }
@@ -72,6 +82,7 @@ const verifyToken = (req, res, next) => {
     next();
 };
 
+// FETCH USER INFROMATION USING JWT
 const getUser = async (req, res, next) => {
     const userId = req.id;
     let user;
