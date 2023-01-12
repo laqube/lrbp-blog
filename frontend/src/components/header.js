@@ -16,6 +16,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Groups2Icon from '@mui/icons-material/Groups2';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
 
 
 
@@ -174,11 +175,28 @@ const Header = () => {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                         >
-                        {settings1.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                            <Typography textAlign="center">{setting}</Typography>
-                            </MenuItem>
-                        ))}
+                            <Stack
+                                direction="column"
+                                justifyContent="center"
+                                alignItems="center"
+                                spacing={3}
+                                >
+                                    <Link 
+                                        to={"/login"}
+                                        underline="none"
+                                        color='inherit'
+                                        sx={{mx:2}}>
+                                        <Button>Login</Button>
+                                    </Link>
+
+                                    <Link 
+                                        to={"/registration"}
+                                        underline="none"
+                                        color='inherit'
+                                        sx={{mx:2}}>
+                                            <Button>Signup</Button>
+                                    </Link>
+                            </Stack>
                         </Menu>
                     </Box>
                     </Toolbar>

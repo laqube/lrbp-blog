@@ -79,9 +79,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
     `npm install mongoose`
     `npm install bcryptjs`
     `npm install jsonwebtoken` 
+    `npm install cookie-parser`
+
 # -> Frontend folder
     `npm install`
     `npm install react`
     `npm install react-router-dom`
     `npm install @mui/system @emotion/react @emotion/styled`
     `npm install @mui/icons-material`
+    `npm install axion`
